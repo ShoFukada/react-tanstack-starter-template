@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  ci:
+    name: CI
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node & pnpm
+        uses: ./.github/actions/setup-node-pnpm
+        with:
+          node-version: '22'
+          pnpm-version: '10'
+
+      - name: Format check
+        run: pnpm run format
+
+      - name: Lint check
+        run: pnpm run lint
+
+      - name: Type check & Build
+        run: pnpm run build
+
+      - name: Unit tests
+        run: pnpm run test:unit
