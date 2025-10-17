@@ -1,0 +1,28 @@
+# Lefthook configuration for react-tanstack-starter-template
+# 高速で軽量なGit Hooksマネージャー
+
+pre-commit:
+  parallel: true
+  commands:
+    # コードフォーマット（高速、修正も含む）
+    format:
+      glob: "*.{js,ts,jsx,tsx,json,yaml,yml,md}"
+      run: pnpm run format:fix
+      stage_fixed: true  # フォーマット修正をステージに追加
+
+    # Lint修正（TypeScript/JSファイルのみ）
+    lint:
+      glob: "*.{js,ts,jsx,tsx}"
+      run: pnpm run lint:fix
+      stage_fixed: true  # lint修正をステージに追加
+
+pre-push:
+  parallel: true
+  commands:
+    # テスト実行
+    test:
+      run: pnpm run test:unit
+
+    # プロダクションビルド確認
+    build:
+      run: pnpm run build
