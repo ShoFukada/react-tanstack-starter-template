@@ -8,6 +8,7 @@ export interface ButtonProps {
 	disabled?: boolean;
 	type?: "button" | "submit" | "reset";
 	className?: string;
+	"aria-label"?: string;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -18,6 +19,7 @@ export const Button: React.FC<ButtonProps> = ({
 	disabled = false,
 	type = "button",
 	className = "",
+	"aria-label": ariaLabel,
 }) => {
 	const baseStyles =
 		"font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed";
@@ -42,6 +44,7 @@ export const Button: React.FC<ButtonProps> = ({
 			type={type}
 			onClick={onClick}
 			disabled={disabled}
+			aria-label={ariaLabel}
 			className={`${baseStyles} ${variantStyles[variant]} ${sizeStyles[size]} ${className}`}
 		>
 			{children}

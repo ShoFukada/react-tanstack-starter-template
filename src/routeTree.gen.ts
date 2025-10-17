@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as EnvRouteImport } from './routes/env'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TodoIndexRouteImport } from './routes/todo.index'
 import { Route as TodoIdRouteImport } from './routes/todo.$id'
@@ -17,6 +18,11 @@ import { Route as DemoStorybookRouteImport } from './routes/demo/storybook'
 import { Route as DemoFormSimpleRouteImport } from './routes/demo/form.simple'
 import { Route as DemoFormAddressRouteImport } from './routes/demo/form.address'
 
+const EnvRoute = EnvRouteImport.update({
+  id: '/env',
+  path: '/env',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -55,6 +61,7 @@ const DemoFormAddressRoute = DemoFormAddressRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/env': typeof EnvRoute
   '/demo/storybook': typeof DemoStorybookRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/todo/$id': typeof TodoIdRoute
@@ -64,6 +71,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/env': typeof EnvRoute
   '/demo/storybook': typeof DemoStorybookRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/todo/$id': typeof TodoIdRoute
@@ -74,6 +82,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/env': typeof EnvRoute
   '/demo/storybook': typeof DemoStorybookRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/todo/$id': typeof TodoIdRoute
@@ -85,6 +94,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/env'
     | '/demo/storybook'
     | '/demo/tanstack-query'
     | '/todo/$id'
@@ -94,6 +104,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/env'
     | '/demo/storybook'
     | '/demo/tanstack-query'
     | '/todo/$id'
@@ -103,6 +114,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/env'
     | '/demo/storybook'
     | '/demo/tanstack-query'
     | '/todo/$id'
@@ -113,6 +125,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  EnvRoute: typeof EnvRoute
   DemoStorybookRoute: typeof DemoStorybookRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
   TodoIdRoute: typeof TodoIdRoute
@@ -123,6 +136,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/env': {
+      id: '/env'
+      path: '/env'
+      fullPath: '/env'
+      preLoaderRoute: typeof EnvRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -177,6 +197,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  EnvRoute: EnvRoute,
   DemoStorybookRoute: DemoStorybookRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
   TodoIdRoute: TodoIdRoute,
