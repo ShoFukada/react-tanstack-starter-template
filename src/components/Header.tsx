@@ -1,5 +1,13 @@
 import { Link } from "@tanstack/react-router";
-import { BookOpen, ClipboardType, Home, Menu, Network, X } from "lucide-react";
+import {
+	BookOpen,
+	CheckSquare,
+	ClipboardType,
+	Home,
+	Menu,
+	Network,
+	X,
+} from "lucide-react";
 import { useState } from "react";
 
 export default function Header() {
@@ -59,6 +67,19 @@ export default function Header() {
 					</Link>
 
 					{/* Demo Links Start */}
+
+					<Link
+						to="/todo"
+						onClick={() => setIsOpen(false)}
+						className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
+						activeProps={{
+							className:
+								"flex items-center gap-3 p-3 rounded-lg bg-cyan-600 hover:bg-cyan-700 transition-colors mb-2",
+						}}
+					>
+						<CheckSquare size={20} />
+						<span className="font-medium">TODO管理</span>
+					</Link>
 
 					<Link
 						to="/demo/tanstack-query"

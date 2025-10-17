@@ -10,6 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TodoIndexRouteImport } from './routes/todo.index'
+import { Route as TodoIdRouteImport } from './routes/todo.$id'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-query'
 import { Route as DemoStorybookRouteImport } from './routes/demo/storybook'
 import { Route as DemoFormSimpleRouteImport } from './routes/demo/form.simple'
@@ -18,6 +20,16 @@ import { Route as DemoFormAddressRouteImport } from './routes/demo/form.address'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TodoIndexRoute = TodoIndexRouteImport.update({
+  id: '/todo/',
+  path: '/todo/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TodoIdRoute = TodoIdRouteImport.update({
+  id: '/todo/$id',
+  path: '/todo/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
@@ -45,6 +57,8 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/demo/storybook': typeof DemoStorybookRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/todo/$id': typeof TodoIdRoute
+  '/todo': typeof TodoIndexRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
 }
@@ -52,6 +66,8 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/demo/storybook': typeof DemoStorybookRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/todo/$id': typeof TodoIdRoute
+  '/todo': typeof TodoIndexRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
 }
@@ -60,6 +76,8 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/demo/storybook': typeof DemoStorybookRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/todo/$id': typeof TodoIdRoute
+  '/todo/': typeof TodoIndexRoute
   '/demo/form/address': typeof DemoFormAddressRoute
   '/demo/form/simple': typeof DemoFormSimpleRoute
 }
@@ -69,6 +87,8 @@ export interface FileRouteTypes {
     | '/'
     | '/demo/storybook'
     | '/demo/tanstack-query'
+    | '/todo/$id'
+    | '/todo'
     | '/demo/form/address'
     | '/demo/form/simple'
   fileRoutesByTo: FileRoutesByTo
@@ -76,6 +96,8 @@ export interface FileRouteTypes {
     | '/'
     | '/demo/storybook'
     | '/demo/tanstack-query'
+    | '/todo/$id'
+    | '/todo'
     | '/demo/form/address'
     | '/demo/form/simple'
   id:
@@ -83,6 +105,8 @@ export interface FileRouteTypes {
     | '/'
     | '/demo/storybook'
     | '/demo/tanstack-query'
+    | '/todo/$id'
+    | '/todo/'
     | '/demo/form/address'
     | '/demo/form/simple'
   fileRoutesById: FileRoutesById
@@ -91,6 +115,8 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DemoStorybookRoute: typeof DemoStorybookRoute
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
+  TodoIdRoute: typeof TodoIdRoute
+  TodoIndexRoute: typeof TodoIndexRoute
   DemoFormAddressRoute: typeof DemoFormAddressRoute
   DemoFormSimpleRoute: typeof DemoFormSimpleRoute
 }
@@ -102,6 +128,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/todo/': {
+      id: '/todo/'
+      path: '/todo'
+      fullPath: '/todo'
+      preLoaderRoute: typeof TodoIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/todo/$id': {
+      id: '/todo/$id'
+      path: '/todo/$id'
+      fullPath: '/todo/$id'
+      preLoaderRoute: typeof TodoIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/demo/tanstack-query': {
@@ -139,6 +179,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DemoStorybookRoute: DemoStorybookRoute,
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
+  TodoIdRoute: TodoIdRoute,
+  TodoIndexRoute: TodoIndexRoute,
   DemoFormAddressRoute: DemoFormAddressRoute,
   DemoFormSimpleRoute: DemoFormSimpleRoute,
 }
