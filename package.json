@@ -8,8 +8,11 @@
     "serve": "vite preview",
     "test": "vitest run",
     "format": "biome format",
+    "format:fix": "biome format --write",
     "lint": "biome lint",
+    "lint:fix": "biome lint --write",
     "check": "biome check",
+    "check:fix": "biome check --write",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
