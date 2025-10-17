@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { env } from "@/env";
 
-export const Route = createFileRoute("/env")({
+export const Route = createFileRoute("/env/")({
 	component: EnvPage,
 });
 
