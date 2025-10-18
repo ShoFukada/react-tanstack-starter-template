@@ -1,4 +1,5 @@
 import { notFound } from "@tanstack/react-router";
+import { env } from "@/env";
 import type {
 	CreateTodoInput,
 	Todo,
@@ -43,8 +44,14 @@ const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 /**
  * Simulate random errors (5% chance)
+ * Can be disabled by setting VITE_DISABLE_MOCK_ERRORS=true
  */
 const maybeThrowError = () => {
+	// Disable random errors when VITE_DISABLE_MOCK_ERRORS is set to true
+	if (env.VITE_DISABLE_MOCK_ERRORS) {
+		return;
+	}
+
 	if (Math.random() < 0.05) {
 		throw new Error(
 			"ネットワークエラーが発生しました。もう一度お試しください。",

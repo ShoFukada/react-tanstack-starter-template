@@ -82,5 +82,9 @@ export default defineConfig({
     url: 'http://localhost:3001',
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
+    env: {
+      VITE_APP_TITLE: 'React TanStack Starter Template',
+      VITE_DISABLE_MOCK_ERRORS: 'true',
+    },
   },
 });

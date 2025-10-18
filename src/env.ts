@@ -14,6 +14,11 @@ export const env = createEnv({
 
 	client: {
 		VITE_APP_TITLE: z.string().min(1).optional(),
+		VITE_DISABLE_MOCK_ERRORS: z
+			.enum(["true", "false"])
+			.optional()
+			.default("false")
+			.transform((val) => val === "true"),
 	},
 
 	/**
